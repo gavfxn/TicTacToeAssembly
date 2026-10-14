@@ -199,6 +199,7 @@ beq $a0, 119, WKey
 beq $a0, 100, DKey
 beq $a0, 115, SKey
 beq $a0, 97, AKey
+beq $a0, 32, SpaceKey
 
 
 
@@ -221,6 +222,12 @@ ble $s1, 0, EndMoveCall
 addi $s1, $s1, -1
 j EndMoveCall
 SpaceKey:
+move $t7, $ra
+move $a1, $s0
+move $a2, $s1
+
+
+
 
 
 
@@ -245,6 +252,17 @@ move $ra, $t7
 jr $ra
 
 
+GetChar:
+mul $t0, $a1, 3
+mul $t0, $t0, 4
+mul $t1, $a2, 4
+add $t1, $t1, $t0
+lw $t2, BoardState
+add $t3, $t2, $t1
+
+lw $a0, 0($t3)
+
+jr $ra
 
 
 
